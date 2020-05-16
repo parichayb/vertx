@@ -28,7 +28,9 @@ public class HelloConsumerMicroservice extends AbstractVerticle {
 
         Single.zip(s1, s2, (luke, leia) -> {
             // We have the results of both requests in Luke and Leia
-            return new JsonObject().put("Luke", luke.getString("message")).put("Leia", leia.getString("message"));
+            return new JsonObject()
+                    .put("Luke", luke.getString("message"))
+                    .put("Leia", leia.getString("message"));
         }).subscribe(result -> rc.response().end(result.encodePrettily()), error -> {
             error.printStackTrace();
             rc.response().setStatusCode(500).end(error.getMessage());
